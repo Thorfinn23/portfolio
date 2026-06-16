@@ -926,11 +926,7 @@
     </div>
     <button class="music-btn" id="music-btn" title="Play / Pause">▶</button>
   </div>
-  <iframe id="yt-player"
-    src="https://www.youtube.com/embed/pFptt7Cargc?enablejsapi=1&controls=0&rel=0"
-    allow="autoplay"
-    style="display:none; width:0; height:0; border:none;">
-  </iframe>
+  <audio id="yt-player" loop preload="none" style="display:none;"><source src="music.webm" type="audio/webm"><source src="music.mp3" type="audio/mpeg"></audio>
 </div>
 <!-- ===== FOOTER ===== -->
 <footer>
@@ -1064,12 +1060,11 @@ let isPlaying = false;
 let autoplayTriggered = false;
 
 function startMusic() {
-  const btn    = document.getElementById('music-btn');
-  const disc   = document.getElementById('music-disc');
-  const iframe = document.getElementById('yt-player');
-  const hint   = document.getElementById('music-hint');
-  iframe.style.display = 'block';
-  iframe.src = 'https://www.youtube.com/embed/pFptt7Cargc?autoplay=1&enablejsapi=1&controls=0&rel=0&loop=1&playlist=pFptt7Cargc';
+  const btn   = document.getElementById('music-btn');
+  const disc  = document.getElementById('music-disc');
+  const audio = document.getElementById('yt-player');
+  const hint  = document.getElementById('music-hint');
+  audio.play().catch(() => {});
   btn.textContent = '⏸';
   disc.classList.add('spinning');
   if (hint) hint.style.display = 'none';
@@ -1077,10 +1072,10 @@ function startMusic() {
 }
 
 function stopMusic() {
-  const btn    = document.getElementById('music-btn');
-  const disc   = document.getElementById('music-disc');
-  const iframe = document.getElementById('yt-player');
-  iframe.src = '';
+  const btn   = document.getElementById('music-btn');
+  const disc  = document.getElementById('music-disc');
+  const audio = document.getElementById('yt-player');
+  audio.pause();
   btn.textContent = '▶';
   disc.classList.remove('spinning');
   isPlaying = false;
@@ -1134,6 +1129,8 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
+
 
 
 
